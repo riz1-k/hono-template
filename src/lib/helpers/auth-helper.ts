@@ -3,8 +3,8 @@ import type { Context } from "hono";
 import { deleteCookie, setSignedCookie } from "hono/cookie";
 import * as jwt from "hono/jwt";
 
-import { db } from "@/server/db";
-import { refreshTokens, users } from "@/server/db/schema";
+import { db } from "@/src/db";
+import { refreshTokens, users } from "@/src/db/schema";
 
 import { COOKIE_NAME, cookieOptions } from "../configs/cookie";
 import { env } from "../configs/env";

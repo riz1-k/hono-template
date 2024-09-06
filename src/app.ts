@@ -40,4 +40,7 @@ export const apiRouter = app
 
 export type AppType = typeof apiRouter;
 
-export default app;
+export default {
+  fetch: app.fetch,
+  port: env.PORT,
+};
