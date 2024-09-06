@@ -13,6 +13,7 @@ const authSchema = createInsertSchema(users).pick({
   email: true,
   password: true,
 });
+
 export const authRouter = new Hono()
   .get("/me", verifyAuth, (c) => {
     return c.json(c.var.user);

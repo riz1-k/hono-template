@@ -5,6 +5,7 @@ import { logger } from "hono/logger";
 
 import { env } from "./lib/configs/env";
 import { authRouter } from "./routes/auth.route";
+import { postRouter } from "./routes/post.route";
 
 const app = new Hono();
 
@@ -32,7 +33,10 @@ app.get("/", (c) => {
   `);
 });
 
-export const apiRouter = app.basePath("/api").route("/auth", authRouter);
+export const apiRouter = app
+  .basePath("/api")
+  .route("/auth", authRouter)
+  .route("/posts", postRouter);
 
 export type AppType = typeof apiRouter;
 

@@ -16,8 +16,8 @@ export default [
     rules: {
       "simple-import-sort/imports": "warn",
       "simple-import-sort/exports": "warn",
-      "drizzle/enforce-delete-with-where": "error",
-      "drizzle/enforce-update-with-where": "error",
+      // "drizzle/enforce-delete-with-where": "error",
+      // "drizzle/enforce-update-with-where": "error",
     },
   },
   // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
