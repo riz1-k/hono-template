@@ -1,6 +1,6 @@
 import app from "./server/app";
-import colorLog from "./server/lib/util/color-log";
 import { env } from "./server/lib/configs/env";
+import colorLog from "./server/lib/util/color-log";
 
 const PORT = env.PORT;
 
