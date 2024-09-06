@@ -34,6 +34,6 @@ app.get("/", (c) => {
 
 export const apiRouter = app.basePath("/api").route("/auth", authRouter);
 
-export type AppRouter = typeof apiRouter;
+export type AppType = typeof apiRouter;
 
 export default app;
