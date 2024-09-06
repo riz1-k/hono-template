@@ -6,7 +6,8 @@ import { Hono } from "hono";
 
 import { db } from "../db";
 import { users } from "../db/schema";
-import { setJWTCookie, signOut, verifyAuth } from "../lib/helpers/auth-helper";
+import { setJWTCookie, signOut } from "../lib/helpers/auth-helper";
+import { verifyAuth } from "../middlewares/auth.middleware";
 
 const authSchema = createInsertSchema(users).pick({
   name: true,

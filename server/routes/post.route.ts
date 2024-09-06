@@ -5,7 +5,7 @@ import { Hono } from "hono";
 
 import { db } from "../db";
 import { posts } from "../db/schema";
-import { verifyAuth } from "../lib/helpers/auth-helper";
+import { verifyAuth } from "../middlewares/auth.middleware";
 
 const createPostSchema = createInsertSchema(posts);
 

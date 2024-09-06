@@ -1,7 +1,6 @@
 import { eq } from "drizzle-orm";
 import type { Context } from "hono";
-import { deleteCookie, getSignedCookie, setSignedCookie } from "hono/cookie";
-import { createMiddleware } from "hono/factory";
+import { deleteCookie, setSignedCookie } from "hono/cookie";
 import * as jwt from "hono/jwt";
 
 import { db } from "@/server/db";
@@ -39,41 +38,6 @@ export async function setJWTCookie(c: Context, user: TPayload) {
   });
   await setSignedCookie(c, COOKIE_NAME, jwt, env.JWT_SECRET, cookieOptions);
 }
-
-export const verifyAuth = createMiddleware<{
-  Variables: {
-    user: TPayload;
-  };
-}>(async (c, next) => {
-  const token = await getSignedCookie(c, env.JWT_SECRET, COOKIE_NAME);
-  if (!token) {
-    return c.json({ message: "Unauthorized" }, 401);
-  }
-  const storedToken = await db.query.refreshTokens.findFirst({
-    where: eq(refreshTokens.token, token),
-    with: {
-      user: {
-        columns: {
-          id: true,
-          email: true,
-          role: true,
-        },
-      },
-    },
-  });
-
-  if (!storedToken) {
-    return c.json({ message: "Refresh Token Not Found" }, 401);
-  }
-
-  if (new Date() > storedToken.expiresAt) {
-    await signOut(c, storedToken.user);
-    return c.json({ message: "Refresh Token Expired" }, 401);
-  }
-
-  c.set("user", storedToken.user);
-  return next();
-});
 
 export async function signOut(c: Context, user: TPayload) {
   await db.delete(refreshTokens).where(eq(refreshTokens.userId, user.id));
